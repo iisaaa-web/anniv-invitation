@@ -107,12 +107,11 @@
     <p class="gold-text">We look forward to celebrating with you! 🎉</p>
   </footer>
 
-  <!-- JAVASCRIPT FOR BOTH OPTIONS -->
+ <!-- JAVASCRIPT FOR BOTH OPTIONS -->
   <script>
     function sendResponse(type) {
-      // ⚠️ PALITAN ANG NUMBERS SA IBABA:
-      var smsNumber = "09486087639";       // Cellphone number para sa Text
-      var waNumber = "639486087639";       // WhatsApp number (Magsimula sa 63)
+      var smsNumber = "09486087639";
+      var waNumber = "639486087639";
 
       var name = document.getElementById("fullname").value;
       var attendance = document.querySelector('input[name="attendance"]:checked').value;
@@ -124,7 +123,7 @@
         return;
       }
 
-      var textBody = "*RSVP Anniversary Celebration*\n" +
+      var textBody = "RSVP Anniversary Celebration\n" +
                      "Name: " + name + "\n" +
                      "Status: " + attendance + "\n" +
                      "Guests: " + guests;
@@ -134,8 +133,9 @@
       }
 
       if (type === 'whatsapp') {
-        var whatsappUrl = "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(textBody);
-        window.open(whatsappUrl, '_blank');
+        // Gamitin ang api.whatsapp.com para mas direktang pumasok sa app at iwas redirect
+        var whatsappUrl = "https://api.whatsapp.com/send?phone=" + waNumber + "&text=" + encodeURIComponent(textBody);
+        window.location.href = whatsappUrl;
       } else if (type === 'sms') {
         var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
         var smsUrl = "sms:" + smsNumber + (isiOS ? "&" : "?") + "body=" + encodeURIComponent(textBody);
@@ -143,6 +143,5 @@
       }
     }
   </script>
-
 </body>
 </html>
