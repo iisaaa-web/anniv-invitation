@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anniversary Celebration Invitation</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HERO / HEADER SECTION -->
+  <header class="hero">
+    <div class="gold-border-overlay"></div>
+    <div class="hero-content">
+      <p class="subtitle">YOU ARE CORDIALLY INVITED TO OUR</p>
+      <h1 class="gold-text">Anniversary Celebration</h1>
+      <div class="gold-divider">♦ ─── ♦ ─── ♦</div>
+      <p class="date">📅 October 27, 2026 | ⏰ 5:00 PM</p>
+      <p class="location">📍 3rd Floor, Masinloc Municipal Hall</p>
+      <a href="#rsvp-section" class="cta-btn">Confirm Your Attendance</a>
+    </div>
+  </header>
+
+  <!-- EVENT DETAILS SECTION -->
+  <section class="details">
+    <h2 class="section-title">Event Details</h2>
+    <div class="cards-container">
+      <div class="card">
+        <div class="card-icon">🗓</div>
+        <h3>Date & Time</h3>
+        <p>Tuesday, October 27, 2026<br>Program begins at 5:00 PM</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📍</div>
+        <h3>Venue</h3>
+        <p>3rd Floor, Masinloc Municipal Hall<br>Masinloc, Zambales</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">👔</div>
+        <h3>Dress Code</h3>
+        <p>Formal Attire<br><span class="highlight-gold">Royal Blue & Gold Accents</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP FORM SECTION -->
+  <section id="rsvp-section" class="rsvp-section">
+    <div class="rsvp-card">
+      <h2 class="gold-text">RSVP</h2>
+      <p class="rsvp-sub">Please fill out your details and choose how to send your response:</p>
+
+      <form id="rsvpForm" class="rsvp-form">
+        
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="fullname">Full Name *</label>
+          <input type="text" id="fullname" placeholder="e.g. Juan Dela Cruz" required>
+        </div>
+
+        <!-- Attendance Option -->
+        <div class="form-group">
+          <label>Will you be attending the event? *</label>
+          <div class="radio-box">
+            <label class="radio-option">
+              <input type="radio" name="attendance" value="Yes, I will attend!" checked> 
+              <span>✨ Yes, I will attend!</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="attendance" value="Regretfully, I cannot attend."> 
+              <span>❌ Regretfully, I cannot attend.</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Number of Guests -->
+        <div class="form-group">
+          <label for="guests">Number of Guests (including yourself) *</label>
+          <select id="guests">
+            <option value="1 Person (Just me)">1 Person (Just me)</option>
+            <option value="2 Persons (Me + 1 Guest)">2 Persons (Me + 1 Guest)</option>
+            <option value="3 Persons">3 Persons</option>
+            <option value="4+ Persons">4 or more</option>
+          </select>
+        </div>
+
+        <!-- Message -->
+        <div class="form-group">
+          <label for="message">Message / Greetings (Optional)</label>
+          <textarea id="message" rows="3" placeholder="Write your message here..."></textarea>
+        </div>
+
+        <!-- DALAWA ANG OPTION BUTTONS -->
+        <div class="btn-group">
+          <button type="button" onclick="sendResponse('whatsapp')" class="btn-submit btn-wa">💬 Submit via WhatsApp</button>
+          <button type="button" onclick="sendResponse('sms')" class="btn-submit btn-sms">📱 Submit via Text / SMS</button>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="gold-text">We look forward to celebrating with you! 🎉</p>
+  </footer>
+
+  <!-- JAVASCRIPT FOR BOTH OPTIONS -->
+  <script>
+    function sendResponse(type) {
+      // ⚠️ PALITAN ANG NUMBERS SA IBABA:
+      var smsNumber = "09486087639";       // Cellphone number para sa Text
+      var waNumber = "639486087639";       // WhatsApp number (Magsimula sa 63)
+
+      var name = document.getElementById("fullname").value;
+      var attendance = document.querySelector('input[name="attendance"]:checked').value;
+      var guests = document.getElementById("guests").value;
+      var message = document.getElementById("message").value;
+
+      if (!name) {
+        alert("Please enter your Full Name.");
+        return;
+      }
+
+      var textBody = "*RSVP Anniversary Celebration*\n" +
+                     "Name: " + name + "\n" +
+                     "Status: " + attendance + "\n" +
+                     "Guests: " + guests;
+
+      if (message) {
+        textBody += "\nMsg: " + message;
+      }
+
+      if (type === 'whatsapp') {
+        var whatsappUrl = "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(textBody);
+        window.open(whatsappUrl, '_blank');
+      } else if (type === 'sms') {
+        var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        var smsUrl = "sms:" + smsNumber + (isiOS ? "&" : "?") + "body=" + encodeURIComponent(textBody);
+        window.location.href = smsUrl;
+      }
+    }
+  </script>
+
+</body>
+</html>
